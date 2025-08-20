@@ -1,0 +1,101 @@
+LIVE CHARACTER COUNTER – TEST CASES & VALIDATIONS
+1. FIELD: Textarea Input
+
+Requirement:
+
+The field can accept any text (alphabets, numbers, symbols, spaces).
+
+It should dynamically update the character counter on every keystroke.
+
+VALID INPUTS:
+
+"Hello World" → Counter should display 11
+
+"12345" → Counter should display 5
+
+"Hello@2025!" → Counter should display 12
+
+INVALID INPUTS:
+
+"" (empty) → Counter should display 0
+
+No restriction errors as all characters are valid.
+
+2. CHARACTER COUNTER DISPLAY
+
+Requirement:
+
+Must always show the live count of characters typed.
+
+Should automatically update as the user adds or deletes content.
+
+EXPECTED OUTPUTS:
+
+Input: "A" → Counter: 1
+
+Input: "Hello from ByteXL" → Counter: 17
+
+After deleting text → Counter decreases accordingly.
+
+CSS Styling Breakdown: A Structured Overview
+1. ELEMENT: body (Page Background)
+
+Purpose: Sets page margins and font styling.
+
+Properties & Effects:
+
+font-family: Arial, sans-serif; → Clean and modern look.
+
+margin: 40px; → Adds spacing around the page for better layout.
+
+2. ELEMENT: .container (Main Wrapper)
+
+Purpose: Wraps the textarea and counter into a neat block.
+
+Properties & Effects:
+
+width: 400px; → Fixed width for consistency.
+
+margin-bottom: 20px; → Adds spacing between multiple sections.
+
+3. ELEMENT: h2 (Title Heading)
+
+Purpose: Labels the section clearly.
+
+Properties & Effects:
+
+margin-bottom: 10px; → Provides spacing below the title.
+
+4. ELEMENT: textarea (Typing Area)
+
+Purpose: Input area where users type their text.
+
+Properties & Effects:
+
+width: 100%; height: 100px; → Full-width, fixed height.
+
+padding: 10px; → Comfortable spacing inside.
+
+font-size: 14px; → Readable text size.
+
+resize: none; → Prevents resizing for a clean layout.
+
+5. ELEMENT: .counter (Character Count Display)
+
+Purpose: Displays real-time character count.
+
+Properties & Effects:
+
+margin-top: 5px; → Spacing above counter.
+
+font-weight: bold; → Makes counter stand out.
+
+LEARNING OUTCOMES
+
+1.Learnt how to handle real-time events in JavaScript using input event.
+
+2.Understood how to dynamically update DOM elements (innerText) on every keystroke.
+
+3.Practiced integrating HTML, CSS, and JavaScript to build interactive features.
+
+4.Improved knowledge of user feedback mechanisms for better interaction.
