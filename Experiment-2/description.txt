@@ -1,0 +1,11 @@
+Implemented three experiments using buttons for Deposit and Withdraw options.
+
+Set the background color to white in CSS.
+
+Applied justify-content: center for alignment.
+
+Changed the cursor to pointer for better interactivity.
+
+Styled the Deposit button in green.
+
+Styled the Withdraw button in red.

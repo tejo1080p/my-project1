@@ -1,0 +1,31 @@
+DOCTYPE html – 
+Tells the browser this is an HTML5 page.
+html lang="en" – 
+Starts the HTML document and says language is English.
+head – 
+Holds page information like title, CSS, and meta settings.
+meta charset="UTF-8" – 
+Makes sure text and symbols show correctly.
+meta name="viewport" content="width=device-width, initial-scale=1.0" – Makes the page fit well on all devices, including mobile.
+title – 
+Sets the page name shown in the browser tab.
+link rel="stylesheet" href="styles.css" – Connects the CSS file to the HTML.
+body – 
+Holds everything that shows on the page.
+input type="checkbox" id="darkModeToggle" – A checkbox for turning dark mode on or off.
+header – 
+Top section of the page, usually with title or navigation.
+h2 – 
+Large heading text for the main title.
+label for="darkModeToggle" – Clickable text connected to the checkbox.
+nav –
+ Section for navigation menus or links.
+ul – 
+Unordered list for grouping items like menu links.
+li – A list item inside the unordered list.
+a – Link to another page or part of the same page.
+main – The main content section of the page.
+h3 – A smaller heading, usually for sub-titles.
+p – A paragraph of text.
+footer – The bottom section of the page, often for copyright or extra info.
+html (end) – Marks the end of the HTML document.

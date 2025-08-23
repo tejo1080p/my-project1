@@ -1,0 +1,81 @@
+:root {
+    --bg-color: #fff;
+    --text-color: #000;
+    --header-bg: #4CAF50;
+    --sidebar-bg: #f4f4f4;
+    --footer-bg: #4CAF50;
+  }
+  
+  body.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #f1f1f1;
+    --header-bg: #333;
+    --sidebar-bg: #2e2e2e;
+    --footer-bg: #333;
+  }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+      "header header"
+      "sidebar main"
+      "footer footer";
+    height: 100vh;
+  }
+  
+  header {
+    grid-area: header;
+    background-color: var(--header-bg);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  #sidebar {
+    grid-area: sidebar;
+    background-color: var(--sidebar-bg);
+    padding: 20px;
+  }
+  
+  
+  main {
+    grid-area: main;
+    padding: 20px;
+  }
+  footer {
+    grid-area: footer;
+    background-color: var(--footer-bg);
+    text-align: center;
+    color: white;
+    padding: 10px;
+  }
+  #sidebar ul {
+    list-style-type: disc;  
+    padding-left: 20px;     
+  }
+  
+  #sidebar li {
+    margin-bottom: 10px;
+  }
+  #sidebar a {
+    display: block;
+    margin-bottom: 10px;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  body.dark #sidebar a {
+    color: lightblue;
+  }
+  
+  #darkModeToggle {
+    cursor: pointer;
+  }

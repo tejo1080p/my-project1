@@ -1,0 +1,6 @@
+i have input the html formate by shor cut method by exclamatory mark and i have copied code from html5 in bytexl
+Username Field: A text input where users can enter their username.
+next i created Email Field: An email input that validates the entered text as a properly formatted email address.
+next step is Message Field: A textarea where users can type a longer message or comment.
+and last i created Submit Button: A button to submit the form data to the server.
+i selected file in the source and control and pushed to the github
