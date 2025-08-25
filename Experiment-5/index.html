@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Filter</title>
+</head>
+<body>
+  <h2>Product List</h2>
+  <label>Filter by Category:
+    <select id="filter">
+      <option value="all">All</option>
+      <option value="clothing">Clothing</option>
+      <option value="electronics">Electronics</option>
+      <option value="books">Books</option>
+    </select>
+  </label>
+  <div id="products"></div>
+  <script>
+    const items = [
+      { name: "T-Shirt",    cat: "clothing" },
+      { name: "Jeans",      cat: "clothing" },
+      { name: "Headphones", cat: "electronics" },
+      { name: "Smartphone", cat: "electronics" },
+      { name: "Novel",      cat: "books" },
+      { name: "Cookbook",   cat: "books" }
+    ];
+    const productsDiv = document.getElementById('products');
+    const filter = document.getElementById('filter');
+    function showList(cat) {
+      productsDiv.innerHTML = '';
+      items.forEach(item => {
+        if (cat === 'all' || item.cat === cat) {
+          let box = document.createElement('div');
+          box.textContent = item.name;
+          box.style.border = "1px solid #ccc";
+          box.style.margin = "6px 0";
+          box.style.padding = "10px";
+          productsDiv.appendChild(box);
+        }
+      });
+    }
+    filter.addEventListener('change', e => showList(e.target.value));
+    showList('all');
+  </script>
+</body>
+</html>

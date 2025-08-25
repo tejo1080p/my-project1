@@ -1,0 +1,66 @@
+Experiment 5
+
+Create a dynamic product filter that displays a list of products and lets the user filter them by category in real time using a dropdown. This helps practice DOM manipulation, events, and updating content dynamically with JavaScript.
+
+Overview
+In this experiment, I created a web-based product list with a filter dropdown. When a user chooses a category, only matching items are shown instantly.
+
+HTML Structure:
+
+1. <!DOCTYPE html>: Declares that this is an HTML5 document.
+2. <html>: The root of the document.
+3. <head>: Contains metadata, page title, and other head information.
+4. <title>: Sets the text shown in the browser tab.
+
+Inside the <body> tag:
+
+1. A <h2> heading that says "Product List".   
+2. A <label> and <select> dropdown with categories (All, Clothing, Electronics, Books).
+3. The dropdown has id="filter" so it can be found by JavaScript.
+4. Each <option> is a product category to filter by.
+5. <div id="products"></div> is an empty container where product items will appear.
+
+JavaScript Logic:
+
+The JavaScript code is the engine that powers the dynamic filtering. It contains the product data and the logic to show, hide, and create elements.
+
+1. Data Source: An array of product objects
+const items = [
+  { name: "T-Shirt",    cat: "clothing" },
+  { name: "Jeans",      cat: "clothing" },
+  { name: "Headphones", cat: "electronics" },
+  { name: "Smartphone", cat: "electronics" },
+  { name: "Novel",      cat: "books" },
+  { name: "Cookbook",   cat: "books" }
+];
+
+2. DOM Element References
+const productsDiv = document.getElementById('products');
+const filter = document.getElementById('filter');
+
+3. The Core Filtering and Display Function
+function showList(cat) {
+Clear any existing items first
+productsDiv.innerHTML='';
+
+4. Event Listener and Initial Call
+filter.addEventListener('change', e => showList(e.target.value));
+showList('all'); // Show all products when the page first loads
+
+Breakdown the Logic:
+
+1. Sets up an array of products (name and category for each).
+2. Finds the products container and dropdown by their ids.
+3. The showList function clears products, checks each item's category, and displays it if it matches the selected filter.
+4. When the dropdown changes, showList runs with the chosen category.
+5. On first load, it shows all products.
+
+Key Learning Points:
+
+1. Practiced creating dynamic lists with JavaScript and HTML.
+2. Used id attributes to connect HTML elements and scripts.
+3. Used event listeners (change on dropdown) to react immediately to user input.
+4. Learned to build page content (innerHTML, createElement, appending children) and handle real-time changes without reloading.
+5. Understood how filtering works by checking conditions inside a JavaScript loop.
+
+This experiment provided practical experience with real-time DOM updates, array handling, event-driven UI, and writing clean, modern JavaScript for user-facing features.
