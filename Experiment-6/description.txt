@@ -1,0 +1,68 @@
+Experiment 6
+
+Create a simple drawing application that allows a user to draw on a canvas with their mouse. This helps in understanding the HTML canvas element, mouse event handling, and 2D drawing contexts in JavaScript.
+
+In this experiment, I created a simple web page where users can draw freely on a designated canvas area using their mouse. A "Clear" button is also provided to erase the drawing and start over.
+
+HTML Structure
+
+1. <!DOCTYPE html>: This declaration defines the document as an HTML5 document for the browser.
+2. <html>: The root element that contains all other HTML elements on the page.
+3. <head>: This section holds meta-information about the page, such as the title and styles, which are not displayed directly on the page.
+4. <meta charset="UTF-8">: Specifies the character encoding for the document to ensure proper display of text.
+5. <title>: Sets the title that appears in the browser's tab or title bar.
+
+Inside the <body> tag:
+
+1. A <h2> heading with the text "Draw with Mouse".
+2. A <canvas> element, which acts as the drawing board. It is given an id="canvas" and set dimensions with width and height attributes.
+3. A <button> with an onclick="clearCanvas()" event. This calls the clearCanvas function in JavaScript when the button is clicked.
+
+JavaScript Logic:
+
+The core drawing functionality is managed by JavaScript, which listens for mouse events on the canvas.
+
+1. canvas: A constant that holds a reference to the <canvas> element using document.getElementById('canvas').
+2. ctx: A constant for the "context" of the canvas, obtained with canvas.getContext('2d'). This object provides all the methods and properties for drawing in 2D.
+3. drawing: A boolean variable initialized to false. It is used as a flag to track whether the user is currently drawing (i.e., if the mouse button is held down).
+
+Event Handlers:
+
+1. canvas.onmousedown: This function runs when the user presses the mouse button down on the canvas. It sets drawing to true, begins a new drawing path with ctx.beginPath(), and sets the starting point of the line to the cursor's current coordinates (ctx.moveTo()).
+2. canvas.onmousemove: This function executes whenever the mouse is moved over the canvas. It first checks if the drawing flag is true. If it is, it draws a line from the last point to the new cursor position (ctx.lineTo()) and makes the line visible (ctx.stroke()).
+3. canvas.onmouseup & canvas.onmouseout: These functions run when the user releases the mouse button or when the cursor leaves the canvas area. Both events set the drawing flag to false to stop the drawing process.
+
+The clearCanvas() Function
+A simple function that clears the entire canvas.
+javascript
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+In this function, clearRect erases a rectangular area, and by providing the canvas's full width and height, it clears everything on it.
+
+Drawing Style Properties:
+
+Before any drawing occurs, some properties of the context (ctx) are set to define the appearance of the lines:
+
+1. ctx.lineWidth: Sets the thickness of the drawing line.
+2. ctx.strokeStyle: Sets the color of the line.
+3. ctx.lineCap: Sets the style for the ends of the lines, with 'round' creating rounded ends.
+
+Basic CSS:
+
+Canvas:
+1. border: A solid black border is added to make the canvas area visible.
+2. cursor: The mouse cursor is changed to a crosshair when it's over the canvas to indicate a drawing tool.
+
+Body:
+1. Became familiar with the HTML5 <canvas> element for creating graphics.
+2. padding: Adds some space around the content.
+
+Learning Outcomes:
+
+1. Became familiar with the HTML5 <canvas> element for creating graphics.
+2. Understood how to get the 2D rendering context (getContext('2d')) to access drawing tools.
+3. Learned to handle mouse events like onmousedown, onmousemove, and onmouseup for interactive control.
+4. Used a boolean state variable (drawing) to manage application logic (start/stop drawing).
+5. Explored fundamental 2D context drawing methods: beginPath(), moveTo(), lineTo(), stroke(), and clearRect().
+6. Learned to customize the appearance of drawings by setting context properties like lineWidth and strokeStyle.
