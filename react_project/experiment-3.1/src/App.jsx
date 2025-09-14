@@ -1,16 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import ProductCard from 'C:\Users\gudal\OneDrive\Desktop\fullstack\react_project\experiment-3.1\src\component\ProductCard.jsx'
+import ProductCard from './component/ProductCard.jsx'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <h1>Tejo</h1>
-      <ProductCard />
+      <h1 className="site-title">Tejo</h1>
+
+      <div className="products-container">
+        <h2 className="products-title">Products List</h2>
+        <div id="product-list">
+          <ProductCard name="Wireless Mouse" price={25.99} stock="In Stock" />
+          <ProductCard name="Keyboard" price={45.5} stock="Out of Stock" />
+          <ProductCard name="Monitor" price={199.99} stock="In Stock" />
+        </div>
+      </div>
     </>
   )
 }
