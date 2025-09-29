@@ -45,7 +45,6 @@ app.post('/cards', (req, res) => {
   cards.push(newCard);
   res.status(201).json(newCard);
 });
-
 // Delete a card by ID
 app.delete('/cards/:id', (req, res) => {
   const index = cards.findIndex(c => c.id === Number(req.params.id));
