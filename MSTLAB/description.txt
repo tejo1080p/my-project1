@@ -1,0 +1,19 @@
+This project is a simple React application that displays a list of movies.
+
+Each movie has a title, genre, and rating, stored in a separate movies.js file.
+
+The app renders the movies as cards using a reusable MovieCards component.
+
+Each card displays the movie details in a clean, styled layout.
+
+A Delete button is provided on each card to remove the movie from the list dynamically.
+
+The app uses React state (useState) to manage the list of movies.
+
+Deleting a movie updates the UI immediately without refreshing the page.
+
+The project is built using Vite for fast development and hot reloading.
+
+It demonstrates component-based architecture and props passing in React.
+
+This project is suitable for beginners to learn React fundamentals and state management.
