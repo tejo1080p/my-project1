@@ -3,7 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Product = require('./models/Product');
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 
@@ -23,46 +23,9 @@ app.get('/', (req, res) => {
   res.send('Welcome to E-commerce Catalog API');
 });
 
-// GET all products
-app.get('/products', async (req, res) => {
-  try {
-    const products = await Product.find();
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
+// Product routes
 
-// GET products by category
-app.get('/products/category/:cat', async (req, res) => {
-  try {
-    const products = await Product.find({ category: req.params.cat });
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// GET only variant color & size
-app.get('/products/variants/all', async (req, res) => {
-  try {
-    const products = await Product.find({}, { "variants.color": 1, "variants.size": 1, _id: 0 });
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// POST a new product
-app.post('/products', async (req, res) => {
-  try {
-    const product = new Product(req.body);
-    await product.save();
-    res.status(201).json(product);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+app.use('/products', productRoutes);
 
 // 🔹 Start server
 const PORT = 5000;
