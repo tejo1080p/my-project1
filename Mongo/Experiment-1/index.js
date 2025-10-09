@@ -27,6 +27,6 @@ app.get('/', (req, res) => {
 
 app.use('/products', productRoutes);
 
-// 🔹 Start server
+//  Start server
 const PORT = 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
