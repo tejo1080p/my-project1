@@ -1,0 +1,36 @@
+/* index.css or App.css */
+body {
+  background-color: black; /* White background */
+  color: black;            /* Black text */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Style inputs */
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Buttons */
+button {
+  background-color: #007bff; /* blue */
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

@@ -1,25 +1,16 @@
 {
-"name": "express-auth-demo",
-"version": "1.0.0",
-"description": "Simple Express server with Bearer token authentication and logging middleware.",
-"main": "index.js",
-"type": "module",
-"scripts": {
-"start": "node server.js",
-"dev": "nodemon server.js"
-},
-"keywords": [
-"express",
-"node",
-"authentication",
-"middleware"
-],
-"author": "",
-"license": "ISC",
-"dependencies": {
-"express": "^5.1.0"
-},
-"devDependencies": {
-"nodemon": "^3.1.0"
-}
+  "name": "experiment-17-middleware",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }

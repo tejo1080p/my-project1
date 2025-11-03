@@ -1,0 +1,18 @@
+Simple React app that displays a horizontal “Products List”.
+ Reusable ProductCard component with props: name, price, stock.
+ Cards render dynamically; pass different props to reuse the same component.
+ Global white background for a clean, minimal look.
+ Top heading “Sharath” displayed above the products section.
+ Bordered container with section title “Products List” for clear grouping.
+Flexbox row aligns cards horizontally with consistent gaps.
+Each card shows title, formatted price ($), and stock status.
+Simple React app that displays a horizontal “Products List”.
+Reusable ProductCard component with props: name, price, stock.
+Cards render dynamically; pass different props to reuse the same component.
+Global white background for a clean, minimal look.
+Top heading “Sharath” displayed above the products section.
+Bordered container with section title “Products List” for clear grouping.
+Flexbox row aligns cards horizontally with consistent gaps.
+Each card shows title, formatted price ($), and stock status.
+rganized files: App.jsx (layout), ProductCard.jsx (card), App.css (styles).
+Easy to extend with more products, real data, or additional features.

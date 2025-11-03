@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Local Package Schema (minimal)",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "version": { "type": "string" },
+    "private": { "type": "boolean" },
+    "type": { "type": "string" },
+    "main": { "type": "string" },
+    "module": { "type": "string" },
+    "scripts": { "type": "object", "additionalProperties": { "type": "string" } },
+    "dependencies": { "type": "object", "additionalProperties": { "type": "string" } },
+    "devDependencies": { "type": "object", "additionalProperties": { "type": "string" } }
+  },
+  "additionalProperties": true
+}
