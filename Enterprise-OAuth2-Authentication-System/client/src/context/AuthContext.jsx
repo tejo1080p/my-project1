@@ -16,9 +16,10 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  // Configure axios defaults
+  // ✅ Configure axios defaults globally
   axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-  axios.defaults.withCredentials = true
+  axios.defaults.withCredentials = true  // allow sending cookies
+  axios.defaults.headers.common['Content-Type'] = 'application/json'
 
   // Check if user is logged in on mount
   useEffect(() => {
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await axios.get('/auth/me')
+      const response = await axios.get('/auth/me', { withCredentials: true })
       setUser(response.data.user)
     } catch (err) {
       setUser(null)
@@ -39,10 +40,22 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setError(null)
-      const response = await axios.post('/auth/login', { email, password })
-      setUser(response.data.user)
+      const response = await axios.post(
+        '/auth/login',
+        { email, password },
+        { withCredentials: true } // ✅ ensures cookies are handled
+      )
+
+      // sometimes /auth/login returns 204 (no content), handle that safely
+      if (response.status === 204) {
+        await checkAuth() // fetch user manually after login
+      } else {
+        setUser(response.data.user)
+      }
+
       return { success: true }
     } catch (err) {
+      console.error('Login error:', err)
       const errorMessage = err.response?.data?.error || 'Login failed'
       setError(errorMessage)
       return { success: false, error: errorMessage }
@@ -52,7 +65,11 @@ export const AuthProvider = ({ children }) => {
   const signup = async (name, email, password) => {
     try {
       setError(null)
-      const response = await axios.post('/auth/signup', { name, email, password })
+      const response = await axios.post(
+        '/auth/signup',
+        { name, email, password },
+        { withCredentials: true }
+      )
       setUser(response.data.user)
       return { success: true }
     } catch (err) {
@@ -64,7 +81,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.post('/auth/logout')
+      await axios.post('/auth/logout', {}, { withCredentials: true })
       setUser(null)
     } catch (err) {
       console.error('Logout error:', err)
@@ -83,4 +100,3 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
-
