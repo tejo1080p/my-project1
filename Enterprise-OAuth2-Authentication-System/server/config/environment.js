@@ -11,13 +11,9 @@ class EnvironmentConfig {
     this.validateRequired();
   }
 
-  /**
-   * Validate required environment variables
-   */
   validateRequired() {
     const required = [];
 
-    // Only require OAuth credentials in production
     if (this.env === 'production') {
       if (!process.env.JWT_SECRET || process.env.JWT_SECRET.includes('change-in-production')) {
         required.push('JWT_SECRET');
@@ -31,42 +27,26 @@ class EnvironmentConfig {
     }
 
     if (required.length > 0) {
-      console.warn(`⚠️  Warning: Missing required environment variables: ${required.join(', ')}`);
-      console.warn('⚠️  Some features may not work correctly.');
+      console.warn(`⚠️ Missing required environment variables: ${required.join(', ')}`);
     }
   }
 
-  /**
-   * Get environment (development, production, test)
-   */
   get environment() {
     return this.env;
   }
 
-  /**
-   * Check if production
-   */
   get isProduction() {
     return this.env === 'production';
   }
 
-  /**
-   * Check if development
-   */
   get isDevelopment() {
     return this.env === 'development';
   }
 
-  /**
-   * Check if test
-   */
   get isTest() {
     return this.env === 'test';
   }
 
-  /**
-   * Server configuration
-   */
   get server() {
     return {
       port: parseInt(process.env.PORT || '5000', 10),
@@ -75,18 +55,12 @@ class EnvironmentConfig {
     };
   }
 
-  /**
-   * Client/Frontend configuration
-   */
   get client() {
     return {
       url: process.env.CLIENT_URL || 'http://localhost:5173'
     };
   }
 
-  /**
-   * Database configuration
-   */
   get database() {
     return {
       uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/oauth-social-login',
@@ -97,9 +71,6 @@ class EnvironmentConfig {
     };
   }
 
-  /**
-   * JWT configuration
-   */
   get jwt() {
     return {
       secret: process.env.JWT_SECRET || this.generateDevSecret('access'),
@@ -109,75 +80,70 @@ class EnvironmentConfig {
     };
   }
 
-  /**
-   * Google OAuth configuration
-   */
   get google() {
     const enabled = !!(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
-    
     return {
       enabled,
       clientId: process.env.GOOGLE_CLIENT_ID || 'GOOGLE_CLIENT_ID_NOT_SET',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'GOOGLE_CLIENT_SECRET_NOT_SET',
       redirectUri: process.env.GOOGLE_REDIRECT_URI || `${this.server.url}/auth/google/callback`,
-      scopes: process.env.GOOGLE_SCOPES ? 
-        process.env.GOOGLE_SCOPES.split(',') : 
-        [
-          'https://www.googleapis.com/auth/userinfo.profile',
-          'https://www.googleapis.com/auth/userinfo.email'
-        ]
+      scopes: process.env.GOOGLE_SCOPES
+        ? process.env.GOOGLE_SCOPES.split(',')
+        : [
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email'
+          ]
     };
   }
 
-  /**
-   * Facebook OAuth configuration
-   */
   get facebook() {
     const enabled = !!(process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET);
-    
     return {
       enabled,
       clientId: process.env.FACEBOOK_CLIENT_ID || 'FACEBOOK_CLIENT_ID_NOT_SET',
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'FACEBOOK_CLIENT_SECRET_NOT_SET',
       redirectUri: process.env.FACEBOOK_REDIRECT_URI || `${this.server.url}/auth/facebook/callback`,
-      scopes: process.env.FACEBOOK_SCOPES ? 
-        process.env.FACEBOOK_SCOPES.split(',') : 
-        ['email', 'public_profile']
+      scopes: process.env.FACEBOOK_SCOPES
+        ? process.env.FACEBOOK_SCOPES.split(',')
+        : ['email', 'public_profile']
     };
   }
 
   /**
-   * CORS configuration
+   * ✅ CORS configuration (updated for Render ↔ Vercel)
    */
   get cors() {
     return {
       origin: this.client.url,
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-      allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Correlation-ID']
+      allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'X-CSRF-Token',
+        'X-Correlation-ID'
+      ],
+      exposedHeaders: ['Set-Cookie']
     };
   }
 
   /**
-   * Cookie configuration
+   * ✅ Cookie configuration (updated for HTTPS + cross-domain)
    */
   get cookies() {
     return {
       httpOnly: true,
-      secure: this.isProduction,
-      sameSite: this.isProduction ? 'strict' : 'lax',
+      secure: this.isProduction, // only secure in prod
+      sameSite: this.isProduction ? 'none' : 'lax', // allow cross-site cookies
       domain: process.env.COOKIE_DOMAIN || undefined,
       path: '/'
     };
   }
 
-  /**
-   * Rate limiting configuration
-   */
   get rateLimit() {
     return {
       auth: {
-        windowMs: 15 * 60 * 1000, // 15 minutes
+        windowMs: 15 * 60 * 1000,
         maxRequests: parseInt(process.env.RATE_LIMIT_AUTH || '5', 10)
       },
       api: {
@@ -189,28 +155,22 @@ class EnvironmentConfig {
         maxRequests: parseInt(process.env.RATE_LIMIT_OAUTH || '10', 10)
       },
       signup: {
-        windowMs: 60 * 60 * 1000, // 1 hour
+        windowMs: 60 * 60 * 1000,
         maxRequests: parseInt(process.env.RATE_LIMIT_SIGNUP || '3', 10)
       }
     };
   }
 
-  /**
-   * Security configuration
-   */
   get security() {
     return {
       bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS || '10', 10),
       csrfEnabled: process.env.CSRF_ENABLED !== 'false',
-      sessionTimeout: parseInt(process.env.SESSION_TIMEOUT || '3600000', 10), // 1 hour
+      sessionTimeout: parseInt(process.env.SESSION_TIMEOUT || '3600000', 10),
       maxLoginAttempts: parseInt(process.env.MAX_LOGIN_ATTEMPTS || '5', 10),
-      lockoutDuration: parseInt(process.env.LOCKOUT_DURATION || '900000', 10) // 15 minutes
+      lockoutDuration: parseInt(process.env.LOCKOUT_DURATION || '900000', 10)
     };
   }
 
-  /**
-   * Feature flags
-   */
   get features() {
     return {
       emailVerification: process.env.FEATURE_EMAIL_VERIFICATION === 'true',
@@ -220,9 +180,6 @@ class EnvironmentConfig {
     };
   }
 
-  /**
-   * Logging configuration
-   */
   get logging() {
     return {
       level: process.env.LOG_LEVEL || (this.isProduction ? 'info' : 'debug'),
@@ -231,9 +188,6 @@ class EnvironmentConfig {
     };
   }
 
-  /**
-   * Generate development secret (for development only)
-   */
   generateDevSecret(type) {
     if (this.isProduction) {
       throw new Error(`${type} secret not set in production!`);
@@ -241,9 +195,6 @@ class EnvironmentConfig {
     return crypto.randomBytes(64).toString('hex');
   }
 
-  /**
-   * Get all configuration as object
-   */
   toObject() {
     return {
       environment: this.environment,
@@ -274,9 +225,6 @@ class EnvironmentConfig {
     };
   }
 
-  /**
-   * Print configuration (for debugging)
-   */
   print() {
     console.log('\n📋 Configuration:');
     console.log(JSON.stringify(this.toObject(), null, 2));
@@ -284,8 +232,5 @@ class EnvironmentConfig {
   }
 }
 
-// Singleton instance
 const config = new EnvironmentConfig();
-
 module.exports = { config };
-
