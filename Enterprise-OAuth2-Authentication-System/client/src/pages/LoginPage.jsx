@@ -12,7 +12,6 @@ const LoginPage = () => {
   const [searchParams] = useSearchParams()
 
   useEffect(() => {
-    // Check for OAuth errors in URL
     const oauthError = searchParams.get('error')
     if (oauthError) {
       setError(`OAuth error: ${oauthError.replace(/_/g, ' ')}`)
@@ -20,7 +19,6 @@ const LoginPage = () => {
   }, [searchParams])
 
   useEffect(() => {
-    // Redirect if already logged in
     if (user) {
       navigate('/dashboard')
     }
@@ -32,12 +30,8 @@ const LoginPage = () => {
     setLoading(true)
 
     const result = await login(email, password)
-    
-    if (result.success) {
-      navigate('/dashboard')
-    } else {
-      setError(result.error)
-    }
+    if (result.success) navigate('/dashboard')
+    else setError(result.error)
     
     setLoading(false)
   }
@@ -46,12 +40,8 @@ const LoginPage = () => {
 
   const handleSocialLogin = (provider) => {
     setOauthLoading(provider)
-    
-    // Get return URL from query params or default to dashboard
     const returnTo = searchParams.get('returnTo') || '/dashboard'
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000'
-    
-    // Redirect to OAuth provider with returnTo parameter
     window.location.href = `${apiUrl}/auth/${provider}?returnTo=${encodeURIComponent(returnTo)}`
   }
 
@@ -64,13 +54,10 @@ const LoginPage = () => {
             <p>Login to your account</p>
           </div>
 
-          {error && (
-            <div className="alert alert-error">
-              {error}
-            </div>
-          )}
+          {error && <div className="alert alert-error">{error}</div>}
 
           <div className="social-login">
+            {/* ✅ Google Login Button (active) */}
             <button 
               onClick={() => handleSocialLogin('google')}
               className="btn btn-social btn-google"
@@ -85,6 +72,8 @@ const LoginPage = () => {
               {oauthLoading === 'google' ? 'Redirecting...' : 'Continue with Google'}
             </button>
 
+            {/* 🚫 Facebook Login Button (temporarily disabled) */}
+            {/*
             <button 
               onClick={() => handleSocialLogin('facebook')}
               className="btn btn-social btn-facebook"
@@ -95,11 +84,10 @@ const LoginPage = () => {
               </svg>
               {oauthLoading === 'facebook' ? 'Redirecting...' : 'Continue with Facebook'}
             </button>
+            */}
           </div>
 
-          <div className="divider">
-            <span>OR</span>
-          </div>
+          <div className="divider"><span>OR</span></div>
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-group">
@@ -140,9 +128,7 @@ const LoginPage = () => {
           <div className="auth-footer">
             <p>
               Don't have an account?{' '}
-              <Link to="/signup" className="link">
-                Sign up
-              </Link>
+              <Link to="/signup" className="link">Sign up</Link>
             </p>
           </div>
         </div>
@@ -152,4 +138,3 @@ const LoginPage = () => {
 }
 
 export default LoginPage
-
