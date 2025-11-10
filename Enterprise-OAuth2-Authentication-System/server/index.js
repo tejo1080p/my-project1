@@ -24,7 +24,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // CORS configuration
-app.use(cors(config.cors));
+//app.use(cors(config.cors));
+app.use(cors({
+  origin: [
+    'https://my-project1-fhnenpwok-tejo-gudalas-projects.vercel.app',
+    'http://localhost:5173'
+  ],
+  credentials: true,
+}));
+
 
 // MongoDB connection
 mongoose.connect(config.database.uri, config.database.options)
