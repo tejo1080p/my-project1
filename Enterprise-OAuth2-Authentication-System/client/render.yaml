@@ -1,8 +1,10 @@
 services:
-  - type: static
-    name: oauth-frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    envVars:
-      - key: VITE_API_URL
-        value: https://enterprise-auth-backend.onrender.com
+  - type: web
+    name: authentication-system
+    env: static
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: "dist"
+    routes:
+      - type: rewrite
+        source: "/**"
+        destination: "/index.html"
