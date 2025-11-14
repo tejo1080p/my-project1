@@ -22,9 +22,6 @@ const {
   getGoogleAuthUrl,
   getGoogleTokens,
   getGoogleUser,
-  getFacebookAuthUrl,
-  getFacebookTokens,
-  getFacebookUser
 } = require('../utils/oauth');
 
 const { config } = require('../config/environment');

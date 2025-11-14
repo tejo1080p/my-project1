@@ -96,18 +96,7 @@ class EnvironmentConfig {
     };
   }
 
-  get facebook() {
-    const enabled = !!(process.env.FACEBOOK_CLIENT_ID && process.env.FACEBOOK_CLIENT_SECRET);
-    return {
-      enabled,
-      clientId: process.env.FACEBOOK_CLIENT_ID || 'FACEBOOK_CLIENT_ID_NOT_SET',
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'FACEBOOK_CLIENT_SECRET_NOT_SET',
-      redirectUri: process.env.FACEBOOK_REDIRECT_URI || `${this.server.url}/auth/facebook/callback`,
-      scopes: process.env.FACEBOOK_SCOPES
-        ? process.env.FACEBOOK_SCOPES.split(',')
-        : ['email', 'public_profile']
-    };
-  }
+
 
   /**
    * ✅ CORS configuration (updated for Render ↔ Vercel)
@@ -211,10 +200,6 @@ class EnvironmentConfig {
       google: {
         ...this.google,
         clientSecret: this.google.enabled ? '[REDACTED]' : 'NOT_SET'
-      },
-      facebook: {
-        ...this.facebook,
-        clientSecret: this.facebook.enabled ? '[REDACTED]' : 'NOT_SET'
       },
       cors: this.cors,
       cookies: this.cookies,
