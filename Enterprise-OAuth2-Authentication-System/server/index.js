@@ -69,6 +69,10 @@ if (config.isDevelopment) {
     res.json(config.toObject());
   });
 }
+app.get('/', (req, res) => {
+  res.send('OAuth Backend Running ✔️');
+});
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {
