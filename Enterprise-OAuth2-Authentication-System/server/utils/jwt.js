@@ -61,41 +61,43 @@ const verifyRefreshToken = (token) => {
 };
 
 /**
- * Set token cookies in response
+ * Set token cookies in response change:::
  */
 const setTokenCookies = (res, accessToken, refreshToken) => {
   const isProduction = process.env.NODE_ENV === 'production';
-  
+
+  const baseOptions = {
+    httpOnly: true,
+    secure: isProduction,                            // only true on Render
+    sameSite: isProduction ? 'none' : 'lax',         // ✅ allow cross-site cookies in prod
+  };
+
   // Access token cookie (15 minutes)
   res.cookie('token', accessToken, {
-    httpOnly: true,
-    secure: isProduction, // HTTPS only in production
-    sameSite: isProduction ? 'strict' : 'lax',
-    maxAge: 15 * 60 * 1000 // 15 minutes
+    ...baseOptions,
+    maxAge: 15 * 60 * 1000,                          // 15 minutes
   });
-  
+
   // Refresh token cookie (7 days)
   res.cookie('refreshToken', refreshToken, {
-    httpOnly: true,
-    secure: isProduction,
-    sameSite: isProduction ? 'strict' : 'lax',
-    maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    ...baseOptions,
+    maxAge: 7 * 24 * 60 * 60 * 1000,                 // 7 days
   });
 };
 
-/**
- * Clear token cookies
- */
 const clearTokenCookies = (res) => {
-  res.cookie('token', '', {
+  const isProduction = process.env.NODE_ENV === 'production';
+
+  const baseOptions = {
     httpOnly: true,
-    expires: new Date(0)
-  });
-  res.cookie('refreshToken', '', {
-    httpOnly: true,
-    expires: new Date(0)
-  });
+    secure: isProduction,
+    sameSite: isProduction ? 'none' : 'lax',
+  };
+
+  res.clearCookie('token', baseOptions);
+  res.clearCookie('refreshToken', baseOptions);
 };
+
 
 module.exports = {
   generateAccessToken,

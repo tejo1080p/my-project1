@@ -25,13 +25,10 @@ app.use(cookieParser());
 
 // CORS configuration
 //app.use(cors(config.cors));
-app.use(cors({
-  origin: [
-    'https://my-project1-fhnenpwok-tejo-gudalas-projects.vercel.app',
-    'http://localhost:5173'
-  ],
-  credentials: true,
-}));
+// CORS configuration (use central config) change:::
+app.use(cors(config.cors));
+app.options('*', cors(config.cors));  // handle preflight
+
 
 
 // MongoDB connection
