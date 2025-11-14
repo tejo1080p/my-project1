@@ -93,7 +93,6 @@ app.listen(PORT, () => {
   console.log(`🌍 Environment: ${config.environment}`);
   console.log(`👤 Client URL: ${config.client.url}`);
   console.log(`🔐 Google OAuth: ${config.google.enabled ? '✅ Enabled' : '❌ Disabled'}`);
-  console.log(`🔐 Facebook OAuth: ${config.facebook.enabled ? '✅ Enabled' : '❌ Disabled'}`);
   console.log(`🛡️  CSRF Protection: ${config.security.csrfEnabled ? '✅ Enabled' : '❌ Disabled'}`);
   console.log(`📝 Audit Logging: ${config.features.auditLog ? '✅ Enabled' : '❌ Disabled'}`);
   console.log('='.repeat(60) + '\n');
